@@ -3,34 +3,70 @@ import { Brain, CheckCircle2, XCircle, Trophy, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
-const sampleQuestion = {
-  question: "What is the largest planet in our Solar System?",
-  options: [
-    { id: 'a', text: 'Saturn', isCorrect: false },
-    { id: 'b', text: 'Jupiter', isCorrect: true },
-    { id: 'c', text: 'Neptune', isCorrect: false },
-    { id: 'd', text: 'Uranus', isCorrect: false },
-  ],
-  difficulty: 'Medium',
-  topic: 'Planetary Science',
-};
+const questions = [
+  {
+    question: "What is the largest planet in our Solar System?",
+    options: [
+      { id: 'a', text: 'Saturn', isCorrect: false },
+      { id: 'b', text: 'Jupiter', isCorrect: true },
+      { id: 'c', text: 'Neptune', isCorrect: false },
+      { id: 'd', text: 'Uranus', isCorrect: false },
+    ],
+    difficulty: 'Medium',
+    topic: 'Planetary Science',
+    explanation: "Jupiter is indeed the largest planet, with a diameter of about 139,820 km!"
+  },
+  {
+    question: "Which galaxy is the Milky Way on a collision course with?",
+    options: [
+      { id: 'a', text: 'Andromeda', isCorrect: true },
+      { id: 'b', text: 'Sombrero', isCorrect: false },
+      { id: 'c', text: 'Triangulum', isCorrect: false },
+      { id: 'd', text: 'Whirlpool', isCorrect: false },
+    ],
+    difficulty: 'Hard',
+    topic: 'Astrophysics',
+    explanation: "The Andromeda Galaxy is currently moving towards the Milky Way at about 110 km/s."
+  },
+  {
+    question: "How many moons does Mars have?",
+    options: [
+      { id: 'a', text: '0', isCorrect: false },
+      { id: 'b', text: '1', isCorrect: false },
+      { id: 'c', text: '2', isCorrect: true },
+      { id: 'd', text: '4', isCorrect: false },
+    ],
+    difficulty: 'Easy',
+    topic: 'Planetary Science',
+    explanation: "Mars has two small moons: Phobos and Deimos."
+  }
+];
 
 export default function QuizSection() {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [score, setScore] = useState(0);
+
+  const currentQuestion = questions[currentQuestionIndex];
 
   const handleAnswer = (optionId: string) => {
     if (showResult) return;
     setSelectedAnswer(optionId);
     setShowResult(true);
+    
+    if (currentQuestion.options.find(o => o.id === optionId)?.isCorrect) {
+      setScore(s => s + 10);
+    }
   };
 
-  const resetQuiz = () => {
+  const nextQuestion = () => {
     setSelectedAnswer(null);
     setShowResult(false);
+    setCurrentQuestionIndex((prev) => (prev + 1) % questions.length);
   };
 
-  const isCorrect = sampleQuestion.options.find(o => o.id === selectedAnswer)?.isCorrect;
+  const isCorrect = currentQuestion.options.find(o => o.id === selectedAnswer)?.isCorrect;
 
   return (
     <section id="quizzes" className="relative py-32 overflow-hidden">
@@ -111,27 +147,27 @@ export default function QuizSection() {
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase tracking-wider">
-                      {sampleQuestion.topic}
+                      {currentQuestion.topic}
                     </p>
                     <p className="text-sm font-medium text-primary">
-                      {sampleQuestion.difficulty}
+                      {currentQuestion.difficulty}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-accent">
                   <Trophy className="w-5 h-5" />
-                  <span className="font-display font-bold">+10 XP</span>
+                  <span className="font-display font-bold">{score} XP</span>
                 </div>
               </div>
 
               {/* Question */}
               <h3 className="font-display text-xl font-semibold text-foreground mb-6">
-                {sampleQuestion.question}
+                {currentQuestion.question}
               </h3>
 
               {/* Options */}
               <div className="space-y-3 mb-6">
-                {sampleQuestion.options.map((option, index) => {
+                {currentQuestion.options.map((option, index) => {
                   const isSelected = selectedAnswer === option.id;
                   const showCorrect = showResult && option.isCorrect;
                   const showWrong = showResult && isSelected && !option.isCorrect;
@@ -190,7 +226,7 @@ export default function QuizSection() {
                       <div>
                         <p className="font-semibold text-green-500">Excellent!</p>
                         <p className="text-sm text-muted-foreground">
-                          Jupiter is indeed the largest planet, with a diameter of about 139,820 km!
+                          {currentQuestion.explanation}
                         </p>
                       </div>
                     </>
@@ -202,7 +238,7 @@ export default function QuizSection() {
                       <div>
                         <p className="font-semibold text-red-500">Not quite!</p>
                         <p className="text-sm text-muted-foreground">
-                          The correct answer is Jupiter. Keep learning!
+                          {currentQuestion.explanation}
                         </p>
                       </div>
                     </>
@@ -217,8 +253,8 @@ export default function QuizSection() {
                   transition={{ delay: 0.3 }}
                   className="mt-6"
                 >
-                  <Button variant="cosmic-outline" onClick={resetQuiz} className="w-full">
-                    Try Another Question
+                  <Button variant="cosmic-outline" onClick={nextQuestion} className="w-full">
+                    {currentQuestionIndex === questions.length - 1 ? "Finish & Restart" : "Next Question"}
                   </Button>
                 </motion.div>
               )}

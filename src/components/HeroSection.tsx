@@ -2,8 +2,21 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Play, Sparkles } from 'lucide-react';
 import SpaceScene from './SpaceScene';
+import { toast } from 'sonner';
 
 export default function HeroSection() {
+  const handleStartExploring = () => {
+    const quizSection = document.getElementById('quizzes');
+    if (quizSection) {
+      quizSection.scrollIntoView({ behavior: 'smooth' });
+      toast.info("Welcome to the Cosmic Voyage!");
+    }
+  };
+
+  const handleWatchDemo = () => {
+    toast.success("Initializing immersive 3D demo...");
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background layers */}
@@ -62,11 +75,11 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <Button variant="cosmic" size="xl">
+            <Button variant="cosmic" size="xl" onClick={handleStartExploring}>
               <Sparkles className="w-5 h-5" />
               Start Exploring
             </Button>
-            <Button variant="cosmic-outline" size="xl">
+            <Button variant="cosmic-outline" size="xl" onClick={handleWatchDemo}>
               <Play className="w-5 h-5" />
               Watch Demo
             </Button>

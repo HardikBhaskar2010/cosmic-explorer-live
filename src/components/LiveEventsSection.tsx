@@ -1,9 +1,12 @@
 import { motion } from 'framer-motion';
 import { Calendar, Clock, Users, Play, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
-const liveEvents = [
+const initialLiveEvents = [
   {
+    id: 1,
     title: 'Journey to Mars',
     instructor: 'Dr. Sarah Chen',
     time: 'Today, 7:00 PM',
@@ -12,6 +15,7 @@ const liveEvents = [
     category: 'Planetary Science',
   },
   {
+    id: 2,
     title: 'Black Holes Explained',
     instructor: 'Prof. James Webb',
     time: 'Tomorrow, 3:00 PM',
@@ -20,6 +24,7 @@ const liveEvents = [
     category: 'Astrophysics',
   },
   {
+    id: 3,
     title: 'Upcoming: Solar Eclipse',
     instructor: 'Dr. Maya Patel',
     time: 'Jan 15, 11:00 AM',
@@ -48,6 +53,26 @@ const upcomingEvents = [
 ];
 
 export default function LiveEventsSection() {
+  const [reminders, setReminders] = useState<number[]>([]);
+
+  const handleAction = (event: typeof initialLiveEvents[0]) => {
+    if (event.isLive) {
+      toast.success(`Joining ${event.title}...`);
+    } else {
+      if (reminders.includes(event.id)) {
+        setReminders(reminders.filter(id => id !== event.id));
+        toast.info(`Reminder removed for ${event.title}`);
+      } else {
+        setReminders([...reminders, event.id]);
+        toast.success(`Reminder set for ${event.title}!`);
+      }
+    }
+  };
+
+  const handleUpcomingClick = (title: string) => {
+    toast.info(`Details for ${title} coming soon!`);
+  };
+
   return (
     <section id="live" className="relative py-32 overflow-hidden">
       {/* Background */}
@@ -92,7 +117,7 @@ export default function LiveEventsSection() {
               Live & Upcoming Sessions
             </h3>
 
-            {liveEvents.map((event, index) => (
+            {initialLiveEvents.map((event, index) => (
               <motion.div
                 key={event.title}
                 initial={{ opacity: 0, x: -30 }}
@@ -133,9 +158,13 @@ export default function LiveEventsSection() {
                         {event.viewers.toLocaleString()} watching
                       </div>
                     </div>
-                    <Button variant={event.isLive ? "solar" : "cosmic-outline"} size="lg">
+                    <Button 
+                      variant={event.isLive ? "solar" : reminders.includes(event.id) ? "cosmic" : "cosmic-outline"} 
+                      size="lg"
+                      onClick={() => handleAction(event)}
+                    >
                       <Play className="w-4 h-4" />
-                      {event.isLive ? 'Join Now' : 'Set Reminder'}
+                      {event.isLive ? 'Join Now' : reminders.includes(event.id) ? 'Reminder Set' : 'Set Reminder'}
                     </Button>
                   </div>
                 </div>
@@ -164,6 +193,7 @@ export default function LiveEventsSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                  onClick={() => handleUpcomingClick(event.title)}
                   className="flex items-center gap-4 p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer group"
                 >
                   <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
@@ -181,7 +211,11 @@ export default function LiveEventsSection() {
               ))}
             </div>
 
-            <Button variant="cosmic-outline" className="w-full mt-6">
+            <Button 
+              variant="cosmic-outline" 
+              className="w-full mt-6"
+              onClick={() => toast.info("Viewing all cosmic events...")}
+            >
               View All Events
             </Button>
           </motion.div>
