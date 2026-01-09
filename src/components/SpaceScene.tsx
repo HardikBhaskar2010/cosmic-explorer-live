@@ -1,7 +1,32 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, Component, ReactNode } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Sphere, Stars, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
+
+class CanvasErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="absolute inset-0 flex items-center justify-center bg-deep-space">
+          <div className="text-center p-6 bg-card/50 backdrop-blur-md rounded-2xl border border-primary/20">
+            <h3 className="font-display text-xl mb-2 text-primary">Cosmic View Offline</h3>
+            <p className="text-sm text-muted-foreground">WebGL is required for the 3D space scene.</p>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 function Planet() {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -138,38 +163,40 @@ function OrbitRing() {
 export default function SpaceScene() {
   return (
     <div className="absolute inset-0 z-0">
-      <Canvas
-        camera={{ position: [0, 2, 8], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
-        style={{ background: 'transparent' }}
-      >
-        <ambientLight intensity={0.2} />
-        <pointLight position={[10, 10, 10]} intensity={1.5} color="#ffffff" />
-        <pointLight position={[-10, -10, -10]} intensity={0.3} color="#00d4ff" />
-        
-        <Stars
-          radius={100}
-          depth={50}
-          count={3000}
-          factor={4}
-          saturation={0}
-          fade
-          speed={0.5}
-        />
-        
-        <Planet />
-        <Moon />
-        <OrbitRing />
-        
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          autoRotate
-          autoRotateSpeed={0.3}
-          maxPolarAngle={Math.PI / 1.8}
-          minPolarAngle={Math.PI / 3}
-        />
-      </Canvas>
+      <CanvasErrorBoundary>
+        <Canvas
+          camera={{ position: [0, 2, 8], fov: 45 }}
+          gl={{ antialias: true, alpha: true }}
+          style={{ background: 'transparent' }}
+        >
+          <ambientLight intensity={0.2} />
+          <pointLight position={[10, 10, 10]} intensity={1.5} color="#ffffff" />
+          <pointLight position={[-10, -10, -10]} intensity={0.3} color="#00d4ff" />
+          
+          <Stars
+            radius={100}
+            depth={50}
+            count={3000}
+            factor={4}
+            saturation={0}
+            fade
+            speed={0.5}
+          />
+          
+          <Planet />
+          <Moon />
+          <OrbitRing />
+          
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            autoRotate
+            autoRotateSpeed={0.3}
+            maxPolarAngle={Math.PI / 1.8}
+            minPolarAngle={Math.PI / 3}
+          />
+        </Canvas>
+      </CanvasErrorBoundary>
     </div>
   );
 }
