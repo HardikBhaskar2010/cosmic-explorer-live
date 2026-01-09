@@ -7,6 +7,12 @@ An immersive space education platform that combines 3D visualization, AI-powered
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6?style=for-the-badge&logo=typescript)
 ![Three.js](https://img.shields.io/badge/Three.js-3D-black?style=for-the-badge&logo=threedotjs)
 
+## 📸 Screenshots
+
+### Hero Section with 3D Planet
+![Hero Section](public/screenshots/hero-section.png)
+*Immersive 3D planet visualization with orbital controls and cosmic design*
+
 ## ✨ Features
 
 ### 🌍 3D Space Exploration
