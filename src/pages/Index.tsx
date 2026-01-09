@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/FeaturesSection';
+import InteractiveSolarSystem from '@/components/InteractiveSolarSystem';
 import LiveEventsSection from '@/components/LiveEventsSection';
 import QuizSection from '@/components/QuizSection';
 import Footer from '@/components/Footer';
@@ -11,6 +12,7 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <FeaturesSection />
+      <InteractiveSolarSystem />
       <LiveEventsSection />
       <QuizSection />
       <Footer />
