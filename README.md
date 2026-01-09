@@ -1,8 +1,98 @@
-# Welcome to your Lovable project
+# 🚀 COSMOS - AI-Powered 3D Space Learning Platform
 
-## Project info
+An immersive space education platform that combines 3D visualization, AI-powered quizzes, and live streaming to make astronomy learning engaging and interactive.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+![COSMOS Platform](https://img.shields.io/badge/Built%20with-Lovable-00d4ff?style=for-the-badge)
+![React](https://img.shields.io/badge/React-18.3-61dafb?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6?style=for-the-badge&logo=typescript)
+![Three.js](https://img.shields.io/badge/Three.js-3D-black?style=for-the-badge&logo=threedotjs)
+
+## ✨ Features
+
+### 🌍 3D Space Exploration
+Navigate through stunning interactive 3D models of planets, moons, stars, and galaxies with smooth orbital controls.
+
+### 🤖 AI-Powered Quizzes
+Experience adaptive quizzes that dynamically adjust difficulty based on your performance and learning pace.
+
+### 📡 Live Streaming
+Join live sessions with astronomy experts and space scientists from around the world.
+
+### 🔔 Smart Notifications
+Get AI-powered alerts about upcoming space events, eclipses, meteor showers, and rocket launches.
+
+### 📊 Progress Tracking
+AI analyzes your learning journey and suggests personalized topics to explore next.
+
+### 🔭 Virtual Observatory
+Access real telescope feeds and explore current celestial phenomena in real-time.
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React 18 + TypeScript + Vite
+- **3D Graphics**: React Three Fiber + Three.js + Drei
+- **Styling**: Tailwind CSS + Custom Design System
+- **Animations**: Framer Motion
+- **UI Components**: Radix UI + shadcn/ui
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ or Bun
+- npm, yarn, or bun package manager
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <YOUR_GIT_URL>
+
+# Navigate to project directory
+cd <YOUR_PROJECT_NAME>
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+## 🎨 Design System
+
+COSMOS features a custom cosmic design system with:
+
+- **Colors**: Deep space darks, electric cyan primary, solar orange accents
+- **Typography**: Orbitron (display) + Inter (body)
+- **Effects**: Glowing elements, star backgrounds, smooth animations
+- **Components**: Custom cosmic button variants, glowing cards, animated sections
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── ui/              # shadcn/ui components
+│   ├── Navbar.tsx       # Navigation with cosmic styling
+│   ├── HeroSection.tsx  # 3D planet hero
+│   ├── SpaceScene.tsx   # Three.js 3D scene
+│   ├── FeaturesSection.tsx
+│   ├── LiveEventsSection.tsx
+│   ├── QuizSection.tsx  # Interactive quiz demo
+│   └── Footer.tsx
+├── pages/
+│   └── Index.tsx        # Main landing page
+├── index.css            # Design system tokens
+└── App.tsx              # App router
+```
 
 ## How can I edit this code?
 
@@ -20,54 +110,27 @@ If you want to work locally using your own IDE, you can clone this repo and push
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
+## 🌐 Deployment
 
 Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
 
-## Can I connect a custom domain to my Lovable project?
+Other deployment options:
+- **Vercel**: `vercel deploy`
+- **Netlify**: Connect GitHub repo
+- **GitHub Pages**: Use GitHub Actions
 
-Yes, you can!
+## Can I connect a custom domain?
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Yes! Navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## 📄 License
+
+MIT License - feel free to use this project for learning and building!
+
+---
+
+<p align="center">
+  Built with ❤️ using <a href="https://lovable.dev">Lovable</a>
+</p>
