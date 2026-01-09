@@ -58,7 +58,7 @@ export default function Navbar() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="cosmic" size="lg">
+            <Button variant="cosmic" size="lg" onClick={() => document.getElementById('explorer')?.scrollIntoView({ behavior: 'smooth' })}>
               Start Learning
             </Button>
           </div>
@@ -90,7 +90,10 @@ export default function Navbar() {
                   {item.label}
                 </a>
               ))}
-              <Button variant="cosmic" size="lg" className="mt-2">
+              <Button variant="cosmic" size="lg" className="mt-2" onClick={() => {
+                document.getElementById('explorer')?.scrollIntoView({ behavior: 'smooth' });
+                setIsOpen(false);
+              }}>
                 Start Learning
               </Button>
             </div>

@@ -125,7 +125,7 @@ export default function QuizSection() {
               ))}
             </div>
 
-            <Button variant="cosmic" size="xl">
+            <Button variant="cosmic" size="xl" onClick={() => document.getElementById('quiz-card')?.scrollIntoView({ behavior: 'smooth' })}>
               <Brain className="w-5 h-5" />
               Start Quiz Challenge
             </Button>
@@ -133,6 +133,7 @@ export default function QuizSection() {
 
           {/* Right - Interactive Quiz Card */}
           <motion.div
+            id="quiz-card"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}

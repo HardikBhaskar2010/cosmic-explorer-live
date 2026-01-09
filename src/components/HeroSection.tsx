@@ -6,9 +6,9 @@ import { toast } from 'sonner';
 
 export default function HeroSection() {
   const handleStartExploring = () => {
-    const quizSection = document.getElementById('quizzes');
-    if (quizSection) {
-      quizSection.scrollIntoView({ behavior: 'smooth' });
+    const explorerSection = document.getElementById('explorer');
+    if (explorerSection) {
+      explorerSection.scrollIntoView({ behavior: 'smooth' });
       toast.info("Welcome to the Cosmic Voyage!");
     }
   };
